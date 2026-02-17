@@ -1,47 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
 * {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
   box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  overflow: hidden;
 }
 
 .container {
   width: 100%;
   height: 100vh;
-  background: #ffe3e3;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
+/* Full-screen background image with blur */
 .container img {
-  width: 75%;
-}
-
-.container h1 {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  font-size: 90px;
-  font-weight: bold;
-  letter-spacing: 3px;
-}
-
-.quotes {
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(8px);
+  z-index: 1;
+}
+
+/* Overlay to darken background for better text visibility */
+.container::before {
+  content: '';
   position: absolute;
-  text-align: center;
-  bottom: 15%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+/* Time display - Clean text without card */
+.container h1 {
+  position: relative;
+  z-index: 3;
   color: #fff;
-  font-size: 20px;
+  font-size: clamp(60px, 12vw, 140px);
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: fadeInScale 1s ease-out;
+}
+
+/* Date display */
+.date-display {
+  position: relative;
+  z-index: 3;
+  color: #fff;
+  font-size: clamp(18px, 3vw, 28px);
+  font-weight: 400;
+  margin-top: 20px;
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0.95;
+  letter-spacing: 2px;
+  animation: fadeIn 1.2s ease-out;
+}
+
+/* Quotes section with glassmorphism */
+.quotes {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  max-width: 700px;
+  text-align: center;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  padding: 20px 30px;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 1.4s ease-out;
+}
+
+.quotes p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(12px, 1.8vw, 16px);
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
 }
 
 .quotes h2 {
-  font-size: 45px;
-  margin-top: 10px;
-  font-weight: 500;
+  color: #fff;
+  font-size: clamp(18px, 3.5vw, 36px);
+  font-weight: 600;
+  line-height: 1.4;
+  text-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  font-style: italic;
+  animation: quoteChange 0.6s ease-out;
+}
+
+/* Animations */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.95;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes quoteChange {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .quotes {
+    bottom: 4%;
+    padding: 18px 25px;
+    width: 92%;
+  }
+
+  .date-display {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container h1 {
+    letter-spacing: 2px;
+  }
+
+  .quotes {
+    padding: 15px 20px;
+  }
 }
